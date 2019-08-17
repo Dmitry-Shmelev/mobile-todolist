@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TodoListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TodoListTests.m */; };
 		1087567B8A194497B2BE89AF /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 397416395D4C426D8F8A2815 /* Zocial.ttf */; };

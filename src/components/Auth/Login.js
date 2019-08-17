@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { ImageBackground, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import axios from 'axios';
 
 import styles from './style';
 import { verifyToken, loginUser } from './action';
-import { isEmpty } from '../../utils';
+import { isEmpty, setHeaderAuth } from '../../utils';
 import { BACKGROUND_IMAGE } from '../../constants';
 
 class Login extends Component {
@@ -21,20 +20,10 @@ class Login extends Component {
 
   componentDidMount() {
     const token = this.props.auth.jwtToken;
-    axios.interceptors.request.use(config => {
+    this.props.verifyToken(token);
 
-      if (!isEmpty(token)) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-
-      return config;
-    }
-    ), function (err) {
-      return Promise.reject(err);
-    };
-
-    this.props.verifyToken();
     if (this.props.auth.loggedIn) {
+      setHeaderAuth(this.props.auth.jwtToken);
       this.props.navigation.navigate('Main');
     }
   }
@@ -55,6 +44,7 @@ class Login extends Component {
     await this.props.loginUser(userData);
 
     if (this.props.auth.loggedIn) {
+      setHeaderAuth(this.props.auth.jwtToken);
       this.props.navigation.navigate('Main');
     } else {
       Alert.alert('Login failed.');

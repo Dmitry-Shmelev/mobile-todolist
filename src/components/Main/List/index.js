@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getLists } from './action';
+import Header from './Header';
 import ListItem from './ListItem';
+import CreateButton from './CreateButton';
 import styles from './style';
 
 
@@ -44,29 +45,38 @@ class List extends Component {
   }
 
   render() {
-    const { list } = this.props;
-    debugger;
+    const filterArray = [
+      {
+        'name': 'Inbox',
+        'icon': 'inbox'
+      },
+      {
+        'name': 'Today',
+        'icon': 'calendar-o'
+      },
+      {
+        'name': 'Week',
+        'icon': 'calendar'
+      },
+      {
+        'name': 'Starred',
+        'icon': 'star-o'
+      }
+    ];
+    const { listArray } = this.props.list;
+
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>F</Text>
-            </View>
-            <Text style={styles.avatarName}>Frank</Text>
-          </View>
-          <View style={styles.headerRight}>
-            <Icon name='bell-o' size={25} color='#ffffff' />
-            <Icon name='comment-o' size={25} color='#ffffff' />
-            <Icon name='search' size={25} color='#ffffff' />
-          </View>
-        </View>
+        <Header />
         <View style={styles.content}>
           <FlatList
-            data={list.listArray}
-            renderItem={({ item }) => <ListItem text={item.name} />}
+            data={filterArray.concat(listArray)}
+            renderItem={({ item }) => <ListItem text={item.name} icon={item.icon || 'list'} />}
+            keyExtractor={(item, index) => 'listItem_' + (item._id || ('filter_' + item.name))}
           />
+          <CreateButton />
         </View>
+
       </SafeAreaView >
     );
   }

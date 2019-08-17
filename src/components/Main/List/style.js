@@ -6,7 +6,6 @@ export default StyleSheet.create({
 		backgroundColor: '#548050',
 	},
 	header: {
-		backgroundColor: '#548050',
 		margin: 10,
 		flexDirection: 'row',
 		height: 50,
@@ -47,8 +46,15 @@ export default StyleSheet.create({
 	listItem: {
 		flexDirection: 'row',
 		margin: 15,
+		alignItems: 'flex-end',
 	},
 	listItemText: {
+		marginLeft: 15,
 		fontSize: 20,
+	},
+	createButton: {
+		position: 'absolute',
+		bottom: 0,
+		alignSelf: 'center',
 	},
 });

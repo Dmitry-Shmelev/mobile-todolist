@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 import { verifyToken } from '../utils';
+
 
 const initialState = {
     isFetching: false,
@@ -46,7 +49,7 @@ export default (state = initialState, action) => {
         case "LOGIN_FULFILLED":
             console.log(action.payload.data);
             let userData = action.payload.data;
-            delete userData.token;
+            //delete userData.token;
             return {
                 ...state,
                 isFetching: false,
@@ -64,6 +67,7 @@ export default (state = initialState, action) => {
             };
 
         case "VERIFY_TOKEN":
+            console.log(state.jwtToken);
             let verifyInfo = verifyToken(state.jwtToken);
             return {
                 ...state,
